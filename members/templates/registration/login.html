@@ -4,13 +4,12 @@
 
 {% block content %}
    
-    <h1>Login to CodeTerra Coding Blog...</h1>
+    <h1>Login to an existing account</h1>
     <br><br>
     <form method="POST">
         {% csrf_token %}
         {{form.as_p}}
         <button class="btn btn-success" action="submit">Login</button>
     </form>
-    
 
 {% endblock %}

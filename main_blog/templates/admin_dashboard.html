@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% load blog_extras %}
+
+{% block content %}
+
+    {% if user.is_superuser %}
+        <div class="h2">
+            Welcome, {{ user.username }}
+            <br>
+            Admin Dashboard
+            <br>
+        </div>
+        <br>
+    {% elif user.is_authenticated and not user.is_superuser %}
+        <h1>Welcome to CodeTerra Coding Blog - Admin Dashboard!</h1>
+        <h4>It seems like you don't have access to this page!</h4>
+        <strong>Login with an Admin Account or contact an Admin to continue.</strong>
+        <br><br>
+    {% else %}
+        <h1> Welcome to CodeTerra Coding Blog - Admin Dashboard!</h1>
+        <h6>Login or Register for an account to unlock more features!</h6>
+        <br><br>
+    {% endif %}
+
+    {% if user.is_superuser %}
+        <div class="row gap-3 mb-5">
+            <a class="btn btn-outline-dark d-flex flex-row" data-bs-toggle="collapse" data-bs-target="#collapseApprovalPosts" href="#collapseApprovalPosts" role="button" aria-expanded="false" aria-controls="collapseApprovalPosts">
+                <div class="btn-text">
+                    Post Approval System
+                </div>
+                <div class="btn-icon ms-auto">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                    </svg>
+                </div>
+            </a>
+            <div class="collapse" id="collapseApprovalPosts">
+                <div class="card">
+                    <div class="card-header bg-transparent">
+                        <div class="h4">
+                            Posts pending approval
+                        </div>
+                    </div>
+                    <div class="card-body d-flex flex-column gap-3">
+                        {% for post in object_list %}
+                            {% if post %}
+                                {% if post.approved == "pending" %}
+                                    <div class="card">
+                                        <div class="card-header bg-transparent p-3 d-flex">
+                                            <div class="post-details">
+                                                <a href="{% url 'article_detail' post.pk %}" class="text-decoration-none text-dark">
+                                                    <strong class="text-capitalize">
+                                                        {{ post.title }}
+                                                    </strong>
+                                                </a>
+                                                <div class="post-info">
+                                                    <small>
+                                                        posted by: <strong>{{ post.author.first_name }} {{ post.author.last_name }} ({{ post.author }})</strong>
+                                                    </small>
+                                                    <br>
+                                                    <small>
+                                                        <i>
+                                                            posted on: {{ post.post_date }}
+                                                        </i>
+                                                    </small>
+                                                    - 
+                                                    <medium>
+                                                        <a href="{% url 'category' post.category|slugify %}" class="text-decoration-none">
+                                                            {{ post.category }}
+                                                        </a>
+                                                    </medium> 
+                                                </div> 
+                                            </div>
+                                            {% if user.is_superuser %}
+                                                <div class="ms-auto align-self-center">
+                                                    <a href="{% url 'admin_update_post' post.pk %}" class="text-decoration-none text-dark">
+                                                        <small>
+                                                            [ Edit Post ]
+                                                        </small>
+                                                    </a>
+                                                    <a href="{% url 'delete_post' post.pk %}" class="text-decoration-none text-dark">
+                                                        <small>
+                                                            [ Delete Post ]
+                                                        </small>
+                                                    </a>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="card-body d-flex flex-row">
+                                            <br>
+                                            <div class="body-text me-auto">
+                                                {{ post.body|convert_markdown|safe|slice:"200" }}
+                                            </div>
+                                            <div class="body-image ms-5">
+                                                <img src="{{ post.img_url }}" alt="Post Image" width="400px" height="250px">
+                                            </div>
+                                            <br><br>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% else %}
+                                <div class="h2">
+                                    No posts pending approval.
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}

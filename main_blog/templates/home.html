@@ -1,20 +1,156 @@
 {% extends 'base.html' %}
 
-{% block content %}
-<h1>All Posts</h1>
+{% load blog_extras %}
 
-<ul>
-{% for post in object_list %}
-    <li>
-        <a href="{% url 'article_detail' post.pk %}">{{ post.title }}</a>
-        - {{ post.author.first_name }} {{ post.author.last_name }} ({{ post.author }}) 
-        - {{ post.post_date }}
-        {% if user.is_authenticated %}
-        - [ <a href="{% url 'update_post' post.pk %}">Edit Post</a> ] [ <a href="{% url 'delete_post' post.pk %}">Delete</a> ]
-        {% endif %}
+{% load static %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <div class="h2">
+        Welcome, {{ user.username }}
         <br>
-        {{ post.body|safe|slice:"200" }}
-    </li>
-{% endfor %}
-</ul>
+        Check out the latest posts below!
+        <br>
+    </div>
+    <br>
+{% else %}
+    <h1> Welcome to CodeTerra Coding Blog!</h1>
+    <h6>Login or Register for an account to unlock more features!</h6>
+    <br><br>
+{% endif %}
+
+<div class="row gap-3 mb-5">
+    <div class="card">
+        <div class="card-header bg-transparent">
+            <div class="h4">
+                Featured Posts
+            </div>
+        </div>
+        <div class="card-body d-flex flex-column gap-3">
+            {% for post in object_list %}
+                {% if post.status == "featured" and post.approved == "approved" %}
+                    <div class="card">
+                        <div class="card-header bg-transparent p-3 d-flex">
+                            <div class="post-details">
+                                <a href="{% url 'article_detail' post.pk %}" class="text-decoration-none text-dark">
+                                    <strong class="text-capitalize">
+                                        {{ post.title }}
+                                    </strong>
+                                </a>
+                                <div class="post-info">
+                                    <small>
+                                        posted by: <strong>{{ post.author.first_name }} {{ post.author.last_name }} ({{ post.author }})</strong>
+                                    </small>
+                                    <br>
+                                    <small>
+                                        <i>
+                                            posted on: {{ post.post_date }}
+                                        </i>
+                                    </small>
+                                    - 
+                                    <medium>
+                                        <a href="{% url 'category' post.category|slugify %}" class="text-decoration-none">
+                                            {{ post.category }}
+                                        </a>
+                                    </medium> 
+                                </div> 
+                            </div>
+                            {% if user.is_superuser %}
+                                <div class="ms-auto align-self-center">
+                                    <a href="{% url 'admin_update_post' post.pk %}" class="text-decoration-none text-dark">
+                                        <small>
+                                            [ Edit Post ]
+                                        </small>
+                                    </a>
+                                    <a href="{% url 'delete_post' post.pk %}" class="text-decoration-none text-dark">
+                                        <small>
+                                            [ Delete Post ]
+                                        </small>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="card-body d-flex flex-row">
+                            <br>
+                            <div class="body-text me-auto">
+                                {{ post.body|convert_markdown|safe|slice:"200" }}
+                            </div>
+                            <div class="body-image ms-5">
+                                <img src="{{ post.img_url }}" alt="Post Image" width="300px" height="200px">
+                            </div>
+                            <br><br>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <br>
+    <div class="card">
+        <div class="card-header bg-transparent">
+            <div class="h4">
+                All Posts
+            </div>
+        </div>
+        <div class="card-body d-flex flex-column gap-3">
+            {% for post in object_list %}
+                {% if post.approved == "approved" %}
+                    <div class="card">
+                        <div class="card-header bg-transparent p-3 d-flex">
+                            <div class="post-details">
+                                <a href="{% url 'article_detail' post.pk %}" class="text-decoration-none text-dark">
+                                    <strong class="text-capitalize">
+                                        {{ post.title }}
+                                    </strong>
+                                </a>
+                                <div class="post-info">
+                                    <small>
+                                        posted by: <strong>{{ post.author.first_name }} {{ post.author.last_name }} ({{ post.author }})</strong>
+                                    </small>
+                                    <br>
+                                    <small>
+                                        <i>
+                                            posted on: {{ post.post_date }}
+                                        </i>
+                                    </small>
+                                    - 
+                                    <medium>
+                                        <a href="{% url 'category' post.category|slugify %}" class="text-decoration-none">
+                                            {{ post.category }}
+                                        </a>
+                                    </medium> 
+                                </div> 
+                            </div>
+                            {% if user.is_superuser %}
+                                <div class="ms-auto align-self-center">
+                                    <a href="{% url 'admin_update_post' post.pk %}" class="text-decoration-none text-dark">
+                                        <small>
+                                            [ Edit Post ]
+                                        </small>
+                                    </a>
+                                    <a href="{% url 'delete_post' post.pk %}" class="text-decoration-none text-dark">
+                                        <small>
+                                            [ Delete Post ]
+                                        </small>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="card-body d-flex flex-row">
+                            <br>
+                            <div class="body-text me-auto">
+                                {{ post.body|convert_markdown|safe|slice:"200" }}
+                            </div>
+                            <div class="body-image ms-5">
+                                <img src="{{ post.img_url }}" alt="Post Image" width="300px" height="200px">
+                            </div>
+                            <br><br>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
 {% endblock %}

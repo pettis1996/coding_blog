@@ -1,26 +1,25 @@
 {% extends 'base.html' %}
 
-{% block title %} Delete Blog Post {% endblock %}
+{% block title %} Admin Edit Blog Post {% endblock %}
 
 {% block content %}
-    
+   
     {% if user.is_authenticated %}
-        <h1>Delete Blog Post</h1>
-        <br>
-        <h3>Delete: {{ post.title }}</h3>
+        <h1>Update Blog Post [Admin]</h1>
         <br><br>
         <form method="POST">
             {% csrf_token %}
-            <strong>Are you sure you want to delete this post?</strong><br>
-            <button class="btn btn-danger" action="submit">Delete Post</button>
+            {{form.as_p}}
+            <button class="btn btn-success" action="submit">Update</button>
         </form>
     {% else %}
         <h1>Oops...</h1>
-        <h3>Looks like you are not logged in. Please log in to delete a post.</h3>
+        <h3>Looks like you are not logged in. Please log in to edit a post.</h3>
         <br>
         <a href="{% url 'home' %}" class="btn btn-primary">Go Back</a>
         <a href="{% url 'register' %}" class="btn btn-outline-primary">Register</a>
         <a href="{% url 'login' %}" class="btn btn-outline-primary">Login</a>
     {% endif %}
+    <br>
 
 {% endblock %}
