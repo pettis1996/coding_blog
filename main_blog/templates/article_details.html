@@ -9,7 +9,7 @@
         {{ post.title }}
     </h1>
 
-    <div class="container d-flex flex-row">
+    <div class="container d-flex flex-row gap-3">
         <div class="p-1 me-auto">
             <small>
                 Posted by: <strong>{{ post.author.first_name }} {{ post.author.last_name }}</strong>
@@ -20,16 +20,45 @@
             </small>
         </div>
 
-        
-        <form action="{% url 'like_post' post.pk %}" method="post">
-            {% csrf_token %}
-            <button type="submit", name="post_id", value="{{ post.id }}", class="btn btn-danger rounded-circle p-1">
-                🤍
-            </button> 
-            <strong>
-                {{ total_likes }} Likes
-            </strong>
-        </form>
+        {% if user.is_authenticated %}
+            {% if liked %}
+                <form action="{% url 'like_post' post.pk %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit", name="post_id", value="{{ post.id }}", class="btn btn-danger rounded-circle p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="18" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                        </svg>
+                    </button> 
+                    <strong>
+                        {{ total_likes }} Likes
+                    </strong>
+                </form>
+            {% else %}
+                <form action="{% url 'like_post' post.pk %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit", name="post_id", value="{{ post.id }}", class="btn btn-outline-danger rounded-circle p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="18" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                        </svg>
+                    </button> 
+                    <strong>
+                        {{ total_likes }} Likes
+                    </strong>
+                </form>
+            {% endif %}
+        {% else %}
+            <form action="{% url 'like_post' post.pk %}" method="post">
+                {% csrf_token %}
+                <button type="submit", name="post_id", value="{{ post.id }}", class="btn btn-outline-danger rounded-circle p-2 disabled">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="18" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                    </svg>
+                </button> 
+                <strong>
+                    {{ total_likes }} Likes
+                </strong>
+            </form>
+        {% endif %}
     </div>
 
     <hr>
