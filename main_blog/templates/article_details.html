@@ -9,28 +9,46 @@
         {{ post.title }}
     </h1>
 
-    <div class="post-details p-1">
-        <small>
-            Posted by: <strong>{{ post.author.first_name }} {{ post.author.last_name }}</strong>
-        </small>
-        <br>
-        <small>
-            Published on: <strong>{{ post.post_date }}</strong>
-        </small>
+    <div class="container d-flex flex-row">
+        <div class="p-1 me-auto">
+            <small>
+                Posted by: <strong>{{ post.author.first_name }} {{ post.author.last_name }}</strong>
+            </small>
+            <br>
+            <small>
+                Published on: <strong>{{ post.post_date }}</strong>
+            </small>
+        </div>
+
+        
+        <form action="{% url 'like_post' post.pk %}" method="post">
+            {% csrf_token %}
+            <button type="submit", name="post_id", value="{{ post.id }}", class="btn btn-danger rounded-circle p-1">
+                🤍
+            </button> 
+            <strong>
+                {{ total_likes }} Likes
+            </strong>
+        </form>
     </div>
-    
+
     <hr>
 
-    <p class="p-3">
+    <div class="p-3">
         {{ post.body|convert_markdown|safe }}
-    </p>
+    </div>
 
     <br>
     <hr>
 
-    <a href="{% url 'home' %}" class="btn btn-secondary">Go Back</a>
-    {% if user.is_superuser %}
-        <a href="{% url 'admin_update_post' post.pk %}" class="btn btn-warning">Edit Post</a>
-        <a href="{% url 'delete_post' post.pk %}" class="btn btn-danger">Delete</a>
-    {% endif %}
+    <div class="container d-flex gap-3">
+        <a href="{% url 'home' %}" class="btn btn-secondary rounded-5 ms-auto">Go Back</a>
+        {% if user.is_superuser %}
+            <a href="{% url 'admin_update_post' post.pk %}" class="btn btn-warning rounded-5">Edit Post</a>
+            <a href="{% url 'delete_post' post.pk %}" class="btn btn-danger rounded-5">Delete</a>
+        {% elif user.id == post.author.id %}
+            <a href="{% url 'update_post' post.pk %}" class="btn btn-warning rounded-5">Edit Post</a>
+            <a href="{% url 'delete_post' post.pk %}" class="btn btn-danger rounded-5">Delete</a>
+        {% endif %}
+    </div>
     {% endblock %}

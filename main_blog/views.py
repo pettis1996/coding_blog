@@ -1,10 +1,13 @@
-from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+
 from .models import Post, Category
 from .forms import AdminPostForm, PostForm, EditForm
-from django.urls import reverse_lazy
 
-# Create your views here.
+
+
 class HomeView(ListView):
     model = Post
     template_name = 'home.html'
@@ -22,17 +25,20 @@ class AdminDashboardView(ListView):
     template_name = 'admin_dashboard.html'
     ordering = ['-post_date', '-id'] 
 
-def CategoryView(request, cats):
-    category_posts = Post.objects.filter(category=cats.replace('-', ' '))
-    return render(request, 'categories.html', {'cats': cats.title().replace('-', ' '), 'category_posts': category_posts})
-
-def CategoryListView(request):
-    categories_menu = Category.objects.all()
-    return render(request, 'categories_menu.html', {'categories_menu': categories_menu})
-
 class ArticleView(DetailView):
     model = Post
     template_name = 'article_details.html'
+
+    def get_context_data(self, *args, **kwargs):
+        cat_menu = Category.objects.all()
+        context = super(ArticleView, self).get_context_data(*args, **kwargs)   
+        context["cat_menu"] = cat_menu
+
+        stuff = get_object_or_404(Post, id=self.kwargs['pk'])
+        total_likes = stuff.total_likes()
+        context["total_likes"] = total_likes
+
+        return context
 
 class AddPostView(CreateView):
     model = Post 
@@ -58,3 +64,16 @@ class AddCategoryView(CreateView):
     model = Category 
     template_name = 'add_category.html'
     fields = '__all__' 
+    
+def CategoryView(request, cats):
+    category_posts = Post.objects.filter(category=cats.replace('-', ' '))
+    return render(request, 'categories.html', {'cats': cats.title().replace('-', ' '), 'category_posts': category_posts})
+
+def CategoryListView(request):
+    categories_menu = Category.objects.all()
+    return render(request, 'categories_menu.html', {'categories_menu': categories_menu})
+
+def LikeView(request, pk):
+    post = get_object_or_404(Post, id=pk)
+    post.likes.add(request.user)
+    return HttpResponseRedirect(reverse('article_detail', args=[str(pk)]))
