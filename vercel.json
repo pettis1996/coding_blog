@@ -21,5 +21,14 @@
             "src": "/(.*)",
             "dest": "coding_blog/wsgi.py"
         }
-    ]
+    ],
+    "env": {
+      "DJANGO_SETTINGS_MODULE": "coding_blog.settings"
+    },
+    "functions": {
+      "api/**": {
+        "runtime": "@vercel/python"
+      }
+    },
+    "excludeFiles": "static/**/*"
 }
