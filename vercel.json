@@ -4,7 +4,7 @@
         {
             "src": "coding_blog/wsgi.py",
             "use": "@vercel/python",
-            "config": { "maxLandaSize": "15mb", "runtime": "python3.11.2"}
+            "config": { "maxLandaSize": "15mb", "runtime": "python3.11"}
         },
         {
             "src": "build_files.sh",
