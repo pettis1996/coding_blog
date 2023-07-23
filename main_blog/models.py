@@ -20,7 +20,7 @@ class Post(models.Model):
     img_url = models.CharField(max_length=255, default="https://media.istockphoto.com/id/1047259374/photo/programming-source-code-abstract-background.jpg?b=1&s=612x612&w=0&k=20&c=ujRPoiaJlm5U3WDWcVVa1YVlFIt6Gcjr-RstzOEPbIU=")
     body = RichTextField(blank=True, null=True)
     post_date = models.DateField(auto_now_add=True)
-    category = models.CharField(max_length=255, default='General')
+    category = models.CharField(max_length=255, default='general')
     status = models.CharField(max_length=100, default='basic') # basic - featured - ad
     approved = models.CharField(max_length=100, default='pending') # pending - declined - approved
     likes = models.ManyToManyField(User, related_name="blog_post")

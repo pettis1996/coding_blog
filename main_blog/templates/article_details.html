@@ -9,6 +9,8 @@
         {{ post.title }}
     </h1>
 
+    <br>
+
     <div class="container d-flex flex-row gap-3">
         <div class="p-1 me-auto">
             <small>
@@ -24,39 +26,45 @@
             {% if liked %}
                 <form action="{% url 'like_post' post.pk %}" method="post">
                     {% csrf_token %}
-                    <button type="submit", name="post_id", value="{{ post.id }}", class="btn btn-danger rounded-circle p-2">
+                    <button type="submit", name="post_id", value="{{ post.id }}", class="btn btn-primary rounded-3 p-2 position-relative">
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="18" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
                         </svg>
+                        Unlike
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-white text-dark" style="border: solid .5px #845EC2">
+                            {{ total_likes }}
+                            <span class="visually-hidden">likes</span>
+                        </span>
                     </button> 
-                    <strong class="m-2">
-                        {{ total_likes }} Likes
-                    </strong>
                 </form>
             {% else %}
                 <form action="{% url 'like_post' post.pk %}" method="post">
                     {% csrf_token %}
-                    <button type="submit", name="post_id", value="{{ post.id }}", class="btn btn-outline-danger rounded-circle p-2">
+                    <button type="submit", name="post_id", value="{{ post.id }}", class="btn btn-outline-primary rounded-3 p-2 position-relative">
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="18" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
                         </svg>
+                        Like
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-white text-dark" style="border: solid .5px #845EC2">
+                            {{ total_likes }}
+                            <span class="visually-hidden">likes</span>
+                        </span>
                     </button> 
-                    <strong class="m-2">
-                        {{ total_likes }} Likes
-                    </strong>
                 </form>
             {% endif %}
         {% else %}
             <form action="{% url 'like_post' post.pk %}" method="post">
                 {% csrf_token %}
-                <button type="submit", name="post_id", value="{{ post.id }}", class="btn btn-outline-danger rounded-circle p-2 disabled">
+                <button type="submit", name="post_id", value="{{ post.id }}", class="btn btn-outline-primary rounded-3 p-2 position-relative disabled">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="18" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
                     </svg>
+                    Like
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary text-dark" style="border: solid .5px red">
+                        {{ total_likes }}
+                        <span class="visually-hidden">likes</span>
+                    </span>
                 </button> 
-                <strong class="m-2">
-                    {{ total_likes }} Likes
-                </strong>
             </form>
         {% endif %}
     </div>
@@ -71,13 +79,13 @@
     <hr>
 
     <div class="container d-flex gap-3">
-        <a href="{% url 'home' %}" class="btn btn-secondary rounded-5 ms-auto">Go Back</a>
         {% if user.is_superuser %}
-            <a href="{% url 'admin_update_post' post.pk %}" class="btn btn-warning rounded-5">Edit Post</a>
-            <a href="{% url 'delete_post' post.pk %}" class="btn btn-danger rounded-5">Delete</a>
+            <a href="{% url 'admin_update_post' post.pk %}" class="btn btn-outline-primary rounded-3 text-white ms-auto">Edit Post</a>
+            <a href="{% url 'delete_post' post.pk %}" class="btn btn-outline-primary rounded-3">Delete</a>
         {% elif user.id == post.author.id %}
-            <a href="{% url 'update_post' post.pk %}" class="btn btn-warning rounded-5">Edit Post</a>
-            <a href="{% url 'delete_post' post.pk %}" class="btn btn-danger rounded-5">Delete</a>
+            <a href="{% url 'update_post' post.pk %}" class="btn btn-outline-primary rounded-3 text-white ms-auto">Edit Post</a>
+            <a href="{% url 'delete_post' post.pk %}" class="btn btn-outline-primary rounded-3">Delete</a>
         {% endif %}
+        <a href="{% url 'home' %}" class="btn btn-light rounded-3">Go Back</a>
     </div>
     {% endblock %}
