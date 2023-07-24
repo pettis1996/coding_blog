@@ -10,19 +10,19 @@
 
 ### Setup and Deploy on AWS EC2
 
-**Step 1**
+**Step 1:**
 Update the system.
 ```bash
     sudo apt-get update
 ```
 
-**Step 2**
+**Step 2:**
 Clone the repository on the server.
 ```bash
     git clone https://github.com/pettis1996/coding_blog.git
 ```
 
-**Step 3**
+**Step 3:**
 Download Django using pip.
 ```bash
     sudo apt install python3-pip -y
@@ -32,13 +32,13 @@ Download Django using pip.
     pip install django
 ```
 
-**Step 4**
+**Step 4:**
 Make migrations.
 ```bash
     python3 manage.py makemigrations
 ```
 
-**Step 5**
+**Step 5:**
 Migrate changes.
 ```bash
     python3 manage.py migrate
@@ -48,7 +48,7 @@ Now the app is ready to run. To run it use the following command:
 ```bash
     python3 manage.py runserver 0.0.0.0:8000
 ```
-OR for local host [127.0.0.1:8000]
+OR for [localhost](127.0.0.1:8000)
 ```bash
     python3 manage.py runserver
 ```
