@@ -1,12 +1,12 @@
 ## Personal Blog Project - In Development
-
+<br>
 
 ***
 
 
-> author: @pettis1996
-> Project made using Python Django. 
-> Check requirements.txt file for all installed modules.
+> author: @pettis1996 <br>
+> Project made using Python Django. <br>
+> Check requirements.txt file for all installed modules. <br>
 
 
 ***
