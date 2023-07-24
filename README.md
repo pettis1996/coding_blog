@@ -44,6 +44,12 @@ Migrate changes.
     python3 manage.py migrate
 ```
 
+**Step 6:**
+Install required modules from requirements.txt.
+```bash
+    pip install -r requirements.txt
+```
+
 Now the app is ready to run. To run it use the following command:
 ```bash
     python3 manage.py runserver 0.0.0.0:8000
