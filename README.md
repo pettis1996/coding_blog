@@ -1,12 +1,12 @@
 ## Personal Blog Project - In Development
-===
+---
 
 > author: @pettis1996 <br>
 > Project made using Python Django for practice. <br>
 > Check requirements.txt file for all installed modules. <br>
 
 
-===
+---
 
 ### Setup and Deploy on AWS EC2
 
