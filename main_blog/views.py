@@ -7,7 +7,6 @@ from .models import Post, Category
 from .forms import AdminPostForm, PostForm, EditForm
 
 
-
 class HomeView(ListView):
     model = Post
     template_name = 'home.html'
@@ -89,3 +88,6 @@ def LikeView(request, pk):
         post.likes.add(request.user)
         liked = True
     return HttpResponseRedirect(reverse('article_detail', args=[str(pk)]))
+
+def AboutMeView(request):
+    return render(request, 'about_me.html')
