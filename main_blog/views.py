@@ -90,4 +90,27 @@ def LikeView(request, pk):
     return HttpResponseRedirect(reverse('article_detail', args=[str(pk)]))
 
 def AboutMeView(request):
-    return render(request, 'about_me.html')
+    skills = [
+        {
+            'title': 'Frontend',
+            'icon': 'bi-arrows-fullscreen',
+            'items': ['HTML5', 'CSS3', 'JS', 'SASS/SCSS', 'ReactJS']
+        },
+        {
+            'title': 'Backend',
+            'icon': 'bi-hdd-network',
+            'items': ['Java', 'Java Springboot', 'Python', 'Django', 'FastAPI', 'C | C++']
+        },
+        {
+            'title': 'Databases | Servers',
+            'icon': 'bi-database-check',
+            'items': ['MySQL', 'MongoDB', 'MariaDB']
+        },
+        {
+            'title': 'Other',
+            'icon': 'bi-clipboard2-data',
+            'items': ['Figma', 'Lunacy', 'Github | GitLab', 'Jira', 'Jenkins', 'Kubernetes', 'Docker']
+        },
+    ]
+
+    return render(request, 'about_me.html', {"skills": skills})

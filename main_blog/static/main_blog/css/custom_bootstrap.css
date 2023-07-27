@@ -69,7 +69,16 @@ body {
     font-family: 'Inconsolata', monospace;
 }
 
-.skills-container {
-    background-color: #333;
+.skills-card {
+    background-color: #845EC2;
+    color: #fff;
+    border: solid 1.5px #fff
+}
+
+.skills-card:hover {
+    background-color: #fff;
+    color: #845EC2;
+    font-weight: bold;
+    border: solid 1.5px #845EC2
 }
 /* About Me End */
