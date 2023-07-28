@@ -113,4 +113,27 @@ def AboutMeView(request):
         },
     ]
 
-    return render(request, 'about_me.html', {"skills": skills})
+    socials = [
+        {
+            "title": "Github",
+            "url": "https://github.com/pettis1996",
+            "icon": "bi bi-github"
+        },
+        {
+            "title": "Instagram",
+            "url": "https://github.com/pettis1996",
+            "icon": "bi bi-instagram"
+        },
+        {
+            "title": "Youtube",
+            "url": "https://github.com/pettis1996",
+            "icon": "bi bi-youtube"
+        },
+        {
+            "title": "LinkedIn",
+            "url": "https://github.com/pettis1996",
+            "icon": "bi bi-linkedin"
+        },
+    ]
+
+    return render(request, 'about_me.html', {"skills": skills, "socials": socials})
