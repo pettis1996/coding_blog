@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django import forms
 
@@ -22,10 +22,25 @@ class EditProfileForm(UserChangeForm):
     email = forms.EmailField(widget = forms.EmailInput(attrs={'class': 'form-control'}))
     first_name = forms.CharField(max_length=150, widget = forms.TextInput(attrs={'class': 'form-control'}))
     last_name = forms.CharField(max_length=150, widget = forms.TextInput(attrs={'class': 'form-control'}))
-    username = forms.CharField(max_length=20, widget = forms.TextInput(attrs={'class': 'form-control'}))
-    last_login = forms.CharField(max_length=50, widget = forms.DateTimeInput(attrs={'class': 'form-control disabled'}))
+    username = forms.CharField(max_length=20, widget = forms.TextInput(attrs={'class': 'form-control', "disabled": ""}))
+    last_login = forms.CharField(max_length=50, widget = forms.DateTimeInput(attrs={'class': 'form-control', "disabled": ""}))
     is_active = forms.CharField(max_length=20, widget = forms.CheckboxInput(attrs={'class': 'form-check'}))
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email', 'username', 'password', 'last_login', 'is_active')
+        fields = ('first_name', 'last_name', 'email', 'username', 'last_login', 'is_active')
+
+    def __init__(self, *args, **kwargs):
+        super(EditProfileForm, self).__init__(*args, **kwargs)
+
+        self.fields['password'].widget.attrs['class'] = 'invisible'
+        self.fields['password'].help_text = "Password is Hidden. Click on the <b>'Change Password'</b> Button to change your current password"
+
+class PasswordChangingForm(PasswordChangeForm):
+    old_password = forms.CharField(max_length=150,widget = forms.PasswordInput(attrs={'class': 'form-control', "type": "password"}))
+    new_password1 = forms.CharField(max_length=150, widget = forms.PasswordInput(attrs={'class': 'form-control', "type": "password"}))
+    new_password2 = forms.CharField(max_length=150, widget = forms.PasswordInput(attrs={'class': 'form-control', "type": "password"}))
+
+    class Meta:
+        model = User
+        fields = ('old_password', 'new_password1', 'new_password2')

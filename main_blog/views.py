@@ -94,7 +94,7 @@ def AboutMeView(request):
         {
             'title': 'Frontend',
             'icon': 'bi-arrows-fullscreen',
-            'items': ['HTML5', 'CSS3', 'JS', 'SASS/SCSS', 'ReactJS']
+            'items': ['HTML5', 'CSS3', 'JS', 'SASS/SCSS', 'ReactJS', 'Thymeleaf', 'Jinja']
         },
         {
             'title': 'Backend',
@@ -104,7 +104,7 @@ def AboutMeView(request):
         {
             'title': 'Databases | Servers',
             'icon': 'bi-database-check',
-            'items': ['MySQL', 'MongoDB', 'MariaDB']
+            'items': ['MySQL', 'MongoDB', 'MariaDB', 'AWS', 'Postman', 'DBeaver']
         },
         {
             'title': 'Other',
@@ -121,19 +121,42 @@ def AboutMeView(request):
         },
         {
             "title": "Instagram",
-            "url": "https://github.com/pettis1996",
+            "url": "https://instagram.com/",
             "icon": "bi bi-instagram"
         },
         {
             "title": "Youtube",
-            "url": "https://github.com/pettis1996",
+            "url": "https://youtube.com/",
             "icon": "bi bi-youtube"
         },
         {
             "title": "LinkedIn",
-            "url": "https://github.com/pettis1996",
+            "url": "https://www.linkedin.com/in/paraskevas-pettis-112024237/",
             "icon": "bi bi-linkedin"
         },
     ]
 
-    return render(request, 'about_me.html', {"skills": skills, "socials": socials})
+    projects = [
+        {
+            "project_name": "Blog Web Application",
+            "url": "https://github.com/pettis1996/coding_blog",
+            "description": "A blog posting web application made with the python django framework.",
+        },
+        {
+            "project_name": "Sudolver",
+            "url": "https://github.com/pettis1996/sudolver",
+            "description": "Sudoku solver using a free API from Rapid API website.",
+        },
+        {
+            "project_name": "University Management System",
+            "url": "https://github.com/pettis1996/university-management-system",
+            "description": "Web Application for Univarsity Management System. (Uni Project)",
+        },
+        {
+            "project_name": "Songs Search Engine",
+            "url": "https://github.com/pettis1996/SongsSearchEngine",
+            "description": "Application in Java for searching song lyrics using the Lucene library.",
+        },
+    ]
+
+    return render(request, 'about_me.html', {"skills": skills, "socials": socials, "projects": projects})

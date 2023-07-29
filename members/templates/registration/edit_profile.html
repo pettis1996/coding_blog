@@ -10,6 +10,9 @@
         {% csrf_token %}
         {{form.as_p}}
         <button class="btn btn-success" action="submit">Update Profile</button>
+        <a class="btn btn-danger" href="{% url 'password_change' %}">
+            Change Password
+        </a>
     </form>
 
 {% endblock %}

@@ -10,6 +10,10 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
+::selection {
+    background: #927bb8;
+}
+
 .btn-bd-primary {
     --bs-btn-font-weight: 600;
     --bs-btn-color: var(--bs-white);
@@ -81,7 +85,8 @@ body {
 .skills-card {
     background-color: transparent;
     color: #fff;
-    border: solid 3.5px #fff
+    border: solid 3.5px #fff;
+    font-weight: 200;
 }
 
 .skills-card:hover {
