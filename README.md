@@ -62,12 +62,12 @@ OR for [Local Hosting](http://127.0.0.1:8000)
 
 ### Test Account Credentials
 
-**Username**
+> Username
 ```bash
     test
 ```
 
-**Password**
+> Password
 ```bash
     testpassword
 ```
