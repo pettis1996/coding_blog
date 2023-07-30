@@ -59,3 +59,15 @@ OR for [Local Hosting](http://127.0.0.1:8000)
     python3 manage.py runserver
 ```
 > use 0.0.0.0:8000 for hosting on AWS EC2
+
+### Test Account Credentials
+
+**Username**
+```bash
+    test
+```
+
+**Password**
+```bash
+    testpassword
+```

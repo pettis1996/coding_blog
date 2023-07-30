@@ -1,6 +1,8 @@
-from django.http import HttpResponseRedirect
+import os
+from django.http import HttpResponseRedirect, FileResponse, Http404
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
+from django.conf import settings
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from .models import Post, Category
@@ -160,3 +162,13 @@ def AboutMeView(request):
     ]
 
     return render(request, 'about_me.html', {"skills": skills, "socials": socials, "projects": projects})
+
+def download_file(request):
+    file_path = os.path.join(settings.MEDIA_ROOT, '1.pdf')
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as file:
+            response = FileResponse(file)
+            response['Content-Disposition'] = 'attachment; filename="1.pdf"'
+            return response
+    else:
+        raise Http404("File not found")
