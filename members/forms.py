@@ -37,9 +37,9 @@ class EditProfileForm(UserChangeForm):
         self.fields['password'].help_text = "Password is Hidden. Click on the <b>'Change Password'</b> Button to change your current password"
 
 class PasswordChangingForm(PasswordChangeForm):
-    old_password = forms.CharField(max_length=150,widget = forms.PasswordInput(attrs={'class': 'form-control', "type": "password"}))
-    new_password1 = forms.CharField(max_length=150, widget = forms.PasswordInput(attrs={'class': 'form-control', "type": "password"}))
-    new_password2 = forms.CharField(max_length=150, widget = forms.PasswordInput(attrs={'class': 'form-control', "type": "password"}))
+    old_password = forms.CharField(max_length=150, label="Old Password", widget = forms.PasswordInput(attrs={'class': 'form-control', "type": "password"}))
+    new_password1 = forms.CharField(max_length=150, label="New Password", widget = forms.PasswordInput(attrs={'class': 'form-control', "type": "password"}))
+    new_password2 = forms.CharField(max_length=150, label="New Password Confirmation", widget = forms.PasswordInput(attrs={'class': 'form-control', "type": "password"}))
 
     class Meta:
         model = User

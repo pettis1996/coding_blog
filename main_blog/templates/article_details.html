@@ -70,6 +70,10 @@
     </div>
 
     <hr>
+    {% if post.header_image %}
+        <img src="{{ post.header_image.url }}" width="100%" height="300">
+    {% endif %}
+    <br>
 
     <div class="p-3">
         {{ post.body|convert_markdown|safe }}

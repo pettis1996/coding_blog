@@ -11,7 +11,7 @@ for item in choises:
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'title_tag', 'author', 'img_url', 'category', 'body')
+        fields = ('title', 'title_tag', 'author', 'img_url', 'category', 'header_image', 'body')
 
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
@@ -25,7 +25,7 @@ class PostForm(forms.ModelForm):
 class AdminPostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'title_tag', 'author', 'img_url', 'category', 'status', 'approved', 'body')
+        fields = ('title', 'title_tag', 'author', 'img_url', 'category', 'status', 'approved', 'header_image', 'body')
 
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
@@ -41,7 +41,7 @@ class AdminPostForm(forms.ModelForm):
 class EditForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'title_tag', 'body')
+        fields = ('title', 'title_tag', 'header_image', 'body')
 
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
