@@ -6,6 +6,41 @@
    
     <h1>Edit Profile</h1>
     <br><br>
+
+    <div class="row">
+        <div class="col d-flex gap-5">
+            {% if user.profile.profile_pic %}
+                <img class="rounded-circle" src="{{ user.profile.profile_pic.url }}" alt="Profile Picture" width="175" height="175">
+            {% else %}
+                <div class="h5">
+                    No Profile Picture.
+                </div>
+            {% endif %}
+
+            {% if user.profile.bio %}
+                <div class="row">
+                    <div class="row">
+                        <div class="h5">
+                            My Bio:
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <p align="justify">
+                            {{ user.profile.bio }}
+                        </p>
+                    </div>
+                </div>
+            {% else %}
+                <div class="h5">
+                    No Profile Picture.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <br><br>
+
     <form method="POST">
         {% csrf_token %}
         {{form.as_p}}

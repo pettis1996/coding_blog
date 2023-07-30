@@ -5,13 +5,33 @@
 {% load blog_extras %}
 
 {% block content %}
-    <h1>
-        {{ post.title }}
-    </h1>
 
-    <br>
+    {% if post.header_image %}
+        <div class="position-relative">
+            <div class="position-relative">
+                {% if post.header_image %}
+                    <img class="rounded-3" src="{{ post.header_image.url }}" width="100%" height="175">
+                {% endif %}
+            </div>
 
-    <div class="container d-flex flex-row gap-3">
+            <br>
+
+            <div class="h2 pe-4 ps-4 pt-4 position-absolute top-0">
+                {{ post.title }}
+            </div>
+
+            <br>
+        </div>
+    {% else %}
+        <div class="h2 pe-4 ps-4 pb-4">
+            {{ post.title }}
+        </div>
+    {% endif %}
+
+    <div class="container d-flex flex-row ps-4 pe-4 gap-3">
+        {% if post.author.profile.profile_pic %}
+            <img class="rounded-circle" src="{{ post.author.profile.profile_pic.url }}" alt="Author Profile Picture" width="60" height="60">
+        {% endif %}
         <div class="p-1 me-auto">
             <small>
                 Posted by: <strong>{{ post.author.first_name }} {{ post.author.last_name }}</strong>
@@ -67,29 +87,82 @@
                 </button> 
             </form>
         {% endif %}
+    </div>  
+
+    <hr>
+
+    <br>
+    
+    <div class="p-3">
+        {{ post.body|convert_markdown|safe }}
     </div>
 
     <hr>
-    {% if post.header_image %}
-        <img src="{{ post.header_image.url }}" width="100%" height="300">
-    {% endif %}
-    <br>
 
-    <div class="p-3">
-        {{ post.body|convert_markdown|safe }}
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            {% if post.author.profile.profile_pic %}
+                <img class="rounded-circle" src="{{ post.author.profile.profile_pic.url }}" alt="Profile Picture" style="width: 150px; height: 125px;">
+            {% else %}
+                <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                </svg>
+            {% endif %}
+        </div>
+        <br>
+        <div class="row d-flex text-center justify-content-center">
+            <div class="h4">
+                {{ post.author.first_name }} {{ post.author.last_name }}
+            </div>
+            <br>
+
+            <small class="d-flex justify-content-center gap-3 m-3 text-muted">
+                {% if post.author.profile.website_url %}
+                    <a class="text-decoration-none text-secondary" target="_blank" href="{{ post.author.profile.website_url }}">Website</a>
+                    |
+                {% endif %}
+                {% if post.author.profile.github_url %}
+                    <a class="text-decoration-none text-secondary" target="_blank" href="{{ post.author.profile.github_url }}">GitHub</a>
+                    |
+                {% endif %}
+                {% if post.author.profile.instagram_url %}
+                    <a class="text-decoration-none text-secondary" target="_blank" href="{{ post.author.profile.instagram_url }}">Instagram</a>
+                    |
+                {% endif %}
+                {% if post.author.profile.linkedin_url %}
+                    <a class="text-decoration-none text-secondary" target="_blank" href="{{ post.author.profile.linkedin_url }}">Linked-In</a>
+                {% endif %}
+            </small>
+
+            <small>
+                <b>Last Seen On:</b>
+                <br>
+                {{ post.author.last_login}}
+            </small>
+            <br>
+            <br><br>
+
+            {% if post.author.profile.bio %}
+                <small>
+                    <b class="h6"><u>More About The Author</u></b> <br><br>
+                    {{ post.author.profile.bio }}
+                </small>
+            {% endif %}
+        </div>
     </div>
 
     <br>
     <hr>
 
     <div class="container d-flex gap-3">
+        <a href="{% url 'home' %}" class="btn btn-light rounded-3">Go Back</a>
         {% if user.is_superuser %}
             <a href="{% url 'admin_update_post' post.pk %}" class="btn btn-outline-primary rounded-3 text-white ms-auto">Edit Post</a>
-            <a href="{% url 'delete_post' post.pk %}" class="btn btn-outline-primary rounded-3">Delete</a>
+            <a href="{% url 'delete_post' post.pk %}" class="btn btn-outline-primary rounded-3">Delete Post</a>
         {% elif user.id == post.author.id %}
             <a href="{% url 'update_post' post.pk %}" class="btn btn-outline-primary rounded-3 text-white ms-auto">Edit Post</a>
-            <a href="{% url 'delete_post' post.pk %}" class="btn btn-outline-primary rounded-3">Delete</a>
+            <a href="{% url 'delete_post' post.pk %}" class="btn btn-outline-primary rounded-3">Delete Post</a>
         {% endif %}
-        <a href="{% url 'home' %}" class="btn btn-light rounded-3">Go Back</a>
     </div>
     {% endblock %}
