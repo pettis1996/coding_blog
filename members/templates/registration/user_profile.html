@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+    <div class="h1">
+        User Profile
+    </div>
+    <br>
+    <hr>
+    <br>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="row d-flex justify-content-start">
+                    {% if page_user.profile_pic %}
+                        <img class="rounded-circle" src="{{ page_user.profile_pic.url }}" alt="Profile Picture" style="width: 150px; height: 125px;">
+                    {% else %}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                        </svg>
+                    {% endif %}
+                </div>
+                <br>
+                <div class="row d-flex text-start justify-content-start">
+                    <div class="h4">
+                        {{ page_user.user.first_name }} {{ page_user.user.last_name }}
+                    </div>
+
+                    <small class="d-flex justify-content-start gap-3 mt-3 mb-4 text-muted">
+                        {% if page_user.website_url %}
+                            <a class="text-decoration-none text-secondary" target="_blank" href="{{ page_user.website_url }}">Website</a>
+                            |
+                        {% endif %}
+                        {% if page_user.github_url %}
+                            <a class="text-decoration-none text-secondary" target="_blank" href="{{ page_user.github_url }}">GitHub</a>
+                            |
+                        {% endif %}
+                        {% if page_user.instagram_url %}
+                            <a class="text-decoration-none text-secondary" target="_blank" href="{{ page_user.instagram_url }}">Instagram</a>
+                            |
+                        {% endif %}
+                        {% if page_user.linkedin_url %}
+                            <a class="text-decoration-none text-secondary" target="_blank" href="{{ page_user.linkedin_url }}">Linked-In</a>
+                        {% endif %}
+                    </small>
+
+                    <small>
+                        <b>Last Seen On:</b>
+                        <br>
+                        {{ page_user.user.last_login}}
+                    </small>
+                    <br>
+                    <br><br>
+
+                    {% if page_user.bio %}
+                        <small align="justify">
+                            <b class="h6"><u>More About The Author</u></b> <br><br>
+                            {{ page_user.bio }}
+                        </small>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="row">
+                    <div class="card border-light text-bg-dark mb-3 w-100">
+                        <div class="card-header">> User Badges</div>
+                        <div class="card-body text-bg-dark">
+                            <div class="d-flex flex-wrap gap-4">
+                                <span class="badge text-bg-primary p-2">Badge #1</span>
+                                <span class="badge text-bg-primary p-2">Badge #1</span>
+                                <span class="badge text-bg-primary p-2">Badge #1</span>
+                                <span class="badge text-bg-primary p-2">Badge #1</span>
+                                <span class="badge text-bg-primary p-2">Badge #1</span>
+                                <span class="badge text-bg-primary p-2">Badge #1</span>
+                                <span class="badge text-bg-primary p-2">Badge #1</span>
+                                <span class="badge text-bg-primary p-2">Badge #1</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

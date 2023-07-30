@@ -163,6 +163,7 @@ def AboutMeView(request):
 
     return render(request, 'about_me.html', {"skills": skills, "socials": socials, "projects": projects})
 
+# TODO: fix this 
 def download_file(request):
     file_path = os.path.join(settings.MEDIA_ROOT, '1.pdf')
     if os.path.exists(file_path):

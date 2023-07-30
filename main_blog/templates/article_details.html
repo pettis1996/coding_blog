@@ -117,6 +117,10 @@
             </div>
             <br>
 
+            <a class="btn btn-outline-primary w-25" href="{% url 'user_profile' post.author.profile.id %}">
+                Go to Profile
+            </a>
+
             <small class="d-flex justify-content-center gap-3 m-3 text-muted">
                 {% if post.author.profile.website_url %}
                     <a class="text-decoration-none text-secondary" target="_blank" href="{{ post.author.profile.website_url }}">Website</a>

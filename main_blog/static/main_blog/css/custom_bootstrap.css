@@ -69,6 +69,10 @@ body {
     color: #fff;
 }
 
+.text-primary {
+    color: #845EC2 !important;
+}
+
 .text-bg-primary {
     background-color: #845EC2 !important;
 }
