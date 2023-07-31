@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %} Edit User Profile {% endblock %}
+
+{% block content %}
+   
+    {% if user.is_authenticated %}
+        {% if user.id == profile.user.id %}
+            <h1>Edit User Profile</h1>
+            <br><br>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form.media}}
+                {{form.as_p}}
+                <button class="btn btn-success" action="submit">Update</button>
+            </form>
+        {% else %}
+            <h1>Oops...</h1>
+            <h3>Looks like you are not allowed here!</h3>
+            <br>
+        {% endif %}
+    {% else %}
+        <h1>Oops...</h1>
+        <h3>Looks like you are not logged in. Please log in to add a post.</h3>
+        <br>
+        <a href="{% url 'home' %}" class="btn btn-primary">Go Back</a>
+        <a href="{% url 'register' %}" class="btn btn-outline-primary">Register</a>
+        <a href="{% url 'login' %}" class="btn btn-outline-primary">Login</a>
+    {% endif %}
+
+{% endblock %}

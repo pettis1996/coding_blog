@@ -4,7 +4,13 @@ from django.urls import reverse_lazy
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeView
 from main_blog.models import Profile
-from .forms import PasswordChangingForm, SignUpForm, EditProfileForm
+from .forms import EditUserProfileForm, PasswordChangingForm, SignUpForm, EditProfileForm
+
+class EditUserProfileView(generic.UpdateView):
+    model = Profile 
+    form_class = EditUserProfileForm
+    template_name = "registration/edit_user_profile.html"
+    success_url = reverse_lazy('user_profile')
 
 class ShowProfilePageView(generic.DetailView):
     model = Profile

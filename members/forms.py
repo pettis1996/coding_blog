@@ -2,6 +2,18 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm, Password
 from django.contrib.auth.models import User
 from django import forms
 
+from main_blog.models import Profile
+
+class EditUserProfileForm(forms.ModelForm):
+    website_url = forms.CharField(max_length=255, widget = forms.TextInput(attrs={'class': 'form-control'}))
+    github_url = forms.CharField(max_length=255, widget = forms.TextInput(attrs={'class': 'form-control'}))
+    instagram_url = forms.CharField(max_length=255, widget = forms.TextInput(attrs={'class': 'form-control'}))
+    linkedin_url = forms.CharField(max_length=255, widget = forms.TextInput(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = Profile
+        fields = ('bio', 'profile_pic', 'website_url', 'github_url', 'instagram_url', 'linkedin_url')
+
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(widget = forms.EmailInput(attrs={'class': 'form-control'}))
     first_name = forms.CharField(max_length=150, widget = forms.TextInput(attrs={'class': 'form-control'}))
