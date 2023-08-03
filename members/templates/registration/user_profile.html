@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% load blog_extras %}
+
+{% load static %}
+
 {% block content %}
     
     <div class="h1">
@@ -59,7 +63,7 @@
                     {% if page_user.bio %}
                         <small align="justify">
                             <b class="h6"><u>More About The Author</u></b> <br><br>
-                            {{ page_user.bio }}
+                            {{ user.profile.bio|convert_markdown|safe|slice:"10000" }}
                         </small>
                     {% endif %}
                 </div>

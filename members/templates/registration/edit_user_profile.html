@@ -2,11 +2,47 @@
 
 {% block title %} Edit User Profile {% endblock %}
 
+{% load blog_extras %}
+
+{% load static %}
+
 {% block content %}
    
     {% if user.is_authenticated %}
         {% if user.id == profile.user.id %}
             <h1>Edit User Profile</h1>
+            <br><br>
+            <div class="row">
+                <div class="col d-flex gap-5">
+                    {% if user.profile.profile_pic %}
+                        <img class="rounded-circle" src="{{ user.profile.profile_pic.url }}" alt="Profile Picture" width="175" height="175">
+                    {% else %}
+                        <div class="h5">
+                            No Profile Picture.
+                        </div>
+                    {% endif %}
+        
+                    {% if user.profile.bio %}
+                        <div class="row">
+                            <div class="row">
+                                <div class="h5">
+                                    My Bio:
+                                    <hr>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <p align="justify">
+                                    {{ user.profile.bio|convert_markdown|safe|slice:"10000" }}
+                                </p>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="h5">
+                            No Profile Bio.
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
             <br><br>
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}

@@ -10,7 +10,7 @@ class EditUserProfileView(generic.UpdateView):
     model = Profile 
     form_class = EditUserProfileForm
     template_name = "registration/edit_user_profile.html"
-    success_url = reverse_lazy('user_profile')
+    success_url = reverse_lazy('home')
 
 class ShowProfilePageView(generic.DetailView):
     model = Profile
