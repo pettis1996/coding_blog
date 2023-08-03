@@ -63,7 +63,7 @@
                     {% if page_user.bio %}
                         <small align="justify">
                             <b class="h6"><u>More About The Author</u></b> <br><br>
-                            {{ user.profile.bio|convert_markdown|safe|slice:"10000" }}
+                            {{ user.profile.bio|convert_markdown|safe|slice:"1000" }}
                         </small>
                     {% endif %}
                 </div>

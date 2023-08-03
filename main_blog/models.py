@@ -15,7 +15,7 @@ class Category(models.Model):
     
 class Profile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    bio = RichTextField(blank=True, null=True)
+    bio = RichTextField(max_length=1000, blank=True, null=True)
     profile_pic = models.ImageField(null=True, blank=True, upload_to="images/profile/")
     website_url = models.CharField(max_length=255, null=True, blank=True)
     github_url = models.CharField(max_length=255, null=True, blank=True)

@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import HttpResponseRedirect, get_object_or_404, render
 from django.views import generic
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import PasswordChangeForm
